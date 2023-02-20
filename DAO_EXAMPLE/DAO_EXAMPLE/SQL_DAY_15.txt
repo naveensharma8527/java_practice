@@ -1,0 +1,11 @@
+CREATE TABLE employee(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    employee_id VARCHAR(5) UNIQUE NOT NULL,
+    employee_name VARCHAR(20) NOT NULL,
+    salary_in_lpa decimal(4, 1) NOT NULL DEFAULT(5.0),
+    date_of_joining date NOT NULL
+);
+
+Instructions
+- Create database (with any name of your choice) and then create table using query given above
+- Please update the url, username and password in the com.masaischool.dao_example.dao.ConnectionToDatabase.java file
