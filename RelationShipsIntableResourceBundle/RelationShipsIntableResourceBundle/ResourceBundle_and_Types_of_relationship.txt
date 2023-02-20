@@ -1,0 +1,137 @@
+dbdetails.txt
+url jdbc:mysql://localhost/sb101_b23_db1
+username root
+password root
+
+BufferedReader reader = new BufferedReader(new FileReader("dbdetails.txt"));
+String url_string = reader.readLine();
+//value of variable url_string = url jdbc:mysql://localhost/sb101_b23_db1
+String url = url_string.split(" ")[1];
+String username_string = reader.readLine();
+//value of variable username_string = username root
+String username = username_string.split(" ")[1];
+String password_string = reader.readLine();
+//value of variable password_string = password root
+String password = password_string.split(" ")[1];
+
+dbdetails.properties (used to store information in form of key and value pair, key and value are separated by space)
+url jdbc:mysql://localhost/sb101_b23_db1
+username root
+password root
+
+ResourceBundle class in java.util package
+
+Types of relationship
+Table: employee
+employee_id int primary key
+name varchar(10) not null
+email varchar(10) not null
+mobile_no varchar(10) not null
+
+Table: employee_pan_aadhaar
+employee_id int primary key
+pan varchar(10)
+aadhaar_number varchar(12)
+
+For every record of employee table, there will be one entry in the employee_pan_aadhaar table
+every record of employee_pan_aadhaar table will belong to exactly one record of employee table
+Table: employee
+employee_id name email mobile_no
+E001        ABC  a@b.in 98XXXXXX96
+E002        BCD  b@b.in 98XXXXXX75
+
+class Employee{
+	private String employeeId;
+	private String name;
+	private String email;
+	private String mobileNo;
+}
+
+employee_pan_aadhaar
+employee_id pan         aadhaar_number
+E001        ABHCD85XXR  7485 XXXX 9696
+E002        BHCCD85XXR  7485 XXXX 9696
+E001        YHUNXXXXX^  7412 XXXX 9696 (Error)
+E003        YHUNXXXXX^  7412 XXXX 9696 (Error)
+
+class EmployeePanAadhaar{
+	private Employee employee;
+	private String PAN;
+	private String aadhaarNumber;
+}
+
+You can implement this by common primary key for both tables or
+you can use foreign key also (it can be on either side)
+
+
+Category
++--------+---------------------+
+| cat_id | cat_name            |
++--------+---------------------+
+|      1 | Electronics         |
+|      2 | Stationary          |
+|      3 | Furniture           |
+|      4 | Food Items          |
+|      5 | House-keeping Goods |
++--------+---------------------+
+
+class Category{
+	private String catId;
+	private String catName;
+	Set<Product> products;
+}
+
+Product
++--------+----------------+----------+------------+--------+
+| pro_id | pro_name       | MRP      | MFG_DATE   | cat_id |
++--------+----------------+----------+------------+--------+
+|      1 | Parker Pen     |   349.00 | 2022-06-16 |      2 |
+|      2 | Student Chair  |  1499.00 | 2021-12-31 |      3 |
+|      3 | Dark Chocolate |   399.00 | 2022-04-30 |      4 |
+|      4 | Microwave Oven | 10500.00 | 2022-05-15 |      1 |
+|      5 | AC             | 34500.00 | 2022-05-01 |      1 |
+|      6 | Footware       |   599.00 | 2022-05-01 |   NULL |
+|      7 | snacks         |    90.00 | 2022-01-01 |      4 |
++--------+----------------+----------+------------+--------+
+
+class product{
+	private String proId;
+	private String proName;
+	private Double MRP;
+	private LocalDate MFGDate;
+	private Category category;
+}
+
+One category can have multiple products
+One product can beling to one category only.
+
+Teachers & Batches
+One Teacher can take many batches
+One batch can be taught by many teachers
+
+Teacher(teacher_id, teach_name, subject, date_of_joining)
+Batch(batch_id, batch_name, batch_strength, batch_start_date, batch_end_date)
+teachers_batches(teacher_id, batch_id, start_date, end_date)
+
+class Teacher{
+	private String teacherId;
+	private String teacherName;
+	private String subject;
+	private String dateOfJoining;
+	Set<Batch> batches;
+}
+
+class Batch{
+	private String batchId;
+	private String batchName;
+	private LocalDate startDate;
+	private LocalDate endDate;
+	List<Teacher> teachers;
+}
+
+class TeachBatches{
+	private Teacher teacher;
+	private Batch batch;
+	private LocalDate startDate;
+	private LocalDate endDate;
+}

@@ -1,0 +1,16 @@
+CREATE TABLE `category` (
+  `cat_id` int NOT NULL,
+  `cat_name` varchar(20) NOT NULL,
+  PRIMARY KEY (`cat_id`)
+)
+
+CREATE TABLE `product` (
+  `pro_id` int NOT NULL,
+  `pro_name` varchar(20) NOT NULL,
+  `MRP` double(7,2) DEFAULT NULL,
+  `MFG_DATE` date NOT NULL,
+  `cat_id` int DEFAULT NULL,
+  PRIMARY KEY (`pro_id`),
+  KEY `cat_pro_fk` (`cat_id`),
+  CONSTRAINT `cat_pro_fk` FOREIGN KEY (`cat_id`) REFERENCES `category` (`cat_id`)
+)
